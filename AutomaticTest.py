@@ -6,11 +6,12 @@ class AutomaticTest():
         self.questions = []
         self.answers = []
         self.validation = []
+        self.score = 0
 
     def load_data(self, dir):
         with open(dir, "r", encoding="utf-8") as f:
             data = f.readlines()
-        for i in range(0, len(data) -5, 5):
+        for i in range(0, len(data) +1, 5):
             self.questions.append(data[i].strip())
             answers = []
             for j in range(i+1, i+4):
@@ -38,6 +39,7 @@ class AutomaticTest():
         else:
             return False
         if self.validation[question_number][answer]:
+            self.score += 1
             return "Správně"
         else:
             return f"Špatně, správně je {self.find_correct_answer(question_number)}"
